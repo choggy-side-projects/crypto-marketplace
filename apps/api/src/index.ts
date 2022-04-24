@@ -1,8 +1,8 @@
 import "dotenv/config";
 
-import { authRoutes } from "./domain/auth";
+import { authRoutes } from "~auth";
 import bodyParser from "body-parser";
-import { categoryRoutes } from "./domain/categories";
+import { categoryRoutes } from "./domain/category";
 import { database } from "./services/mongodb";
 import express from "express";
 import { profileRoutes } from "./domain/profile";
