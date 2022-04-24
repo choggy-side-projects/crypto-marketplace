@@ -11,7 +11,7 @@ const profileSchema = new Schema<IProfile>({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   avatar: { type: String, required: false },
-  userId: { type: String, required: true },
+  userId: { type: String, required: true, unique: true },
 });
 
 export const ProfileModel = model<IProfile>("Profile", profileSchema);
