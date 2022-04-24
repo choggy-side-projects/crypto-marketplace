@@ -1,11 +1,17 @@
 import { NextFunction, Request, Response } from "express";
 import { sign, verify } from "jsonwebtoken";
 
-export const generateToken = (user: any) => {
+import { IUser } from "../data/schema";
+
+export const generateToken = (user: IUser) => {
   return sign(
     {
       iss: "crypto-marketplace",
-      sub: user.id,
+      sub: {
+        id: user.id,
+        roles: user.roles,
+        active: user.active,
+      },
       iat: new Date().getTime(),
       exp: new Date().setDate(new Date().getDate() + 1),
     },
@@ -30,14 +36,27 @@ export const authMiddleware = (
 ) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const decodedUserId = verifyToken(token);
-    if (decodedUserId) {
-      req.user = decodedUserId;
+    const decodedUser = verifyToken(token);
+    if (decodedUser) {
+      req.user = decodedUser;
       next();
     } else {
       return res.status(401).send("");
     }
   } catch {
+    return res.status(401).send("");
+  }
+};
+
+export const roleMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+  roles: string[]
+) => {
+  if ((req.user as IUser).roles.every((role) => roles.includes(role))) {
+    next();
+  } else {
     return res.status(401).send("");
   }
 };

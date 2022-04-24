@@ -1,6 +1,7 @@
 import { Schema, model } from "mongoose";
 
-interface IUser {
+export interface IUser {
+  id: string;
   email: string;
   password: string;
   active: "active" | "inactive" | "disabled";

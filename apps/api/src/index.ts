@@ -2,6 +2,7 @@ import "dotenv/config";
 
 import { authRoutes } from "./domain/auth";
 import bodyParser from "body-parser";
+import { categoryRoutes } from "./domain/categories";
 import { database } from "./services/mongodb";
 import express from "express";
 import { profileRoutes } from "./domain/profile";
@@ -15,6 +16,7 @@ database.then(() => {
   // Resource routes setup
   app.use("/auth", authRoutes);
   app.use("/profile", profileRoutes);
+  app.use("/category", categoryRoutes);
 
   app.listen(4000, () => console.log("Server started"));
 });

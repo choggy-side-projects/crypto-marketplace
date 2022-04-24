@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
 
+import { IUser } from "../../auth/data/schema";
 import { ProfileModel } from "../data/schema";
 
 export const update = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
     const { firstName, lastName, avatar } = req.body;
-    const profile = await ProfileModel.findOne({
-      id,
+    const existing = await ProfileModel.findOne({
+      userId: (req.user as IUser).id,
     });
 
-    if (!profile) {
+    if (!existing) {
       return res.status(404).send("");
     }
 
-    profile.firstName = firstName;
-    profile.lastName = lastName;
-    profile.avatar = avatar;
+    existing.firstName = firstName;
+    existing.lastName = lastName;
+    existing.avatar = avatar;
 
-    await profile.save();
+    await existing.save();
 
-    return res.status(200).json({ profile });
+    return res.status(200).json({ profile: existing });
   } catch (e) {
     return res.status(500).json({ error: e });
   }

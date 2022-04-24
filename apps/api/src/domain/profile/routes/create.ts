@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 
+import { IUser } from "../../auth/data/schema";
 import { ProfileModel } from "../data/schema";
 
 export const create = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, avatar } = req.body;
     const existing = await ProfileModel.findOne({
-      userId: req.user,
+      userId: (req.user as IUser).id,
     });
 
     if (!existing) {
@@ -14,7 +15,7 @@ export const create = async (req: Request, res: Response) => {
         firstName,
         lastName,
         avatar,
-        userId: req.user,
+        userId: (req.user as IUser).id,
       });
 
       await profile.save();

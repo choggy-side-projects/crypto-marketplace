@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 
-import { ProfileModel } from "../data/schema";
+import { CategoryModel } from "../data/schema";
 
 export const readAll = async (req: Request, res: Response) => {
   try {
-    const profiles = await ProfileModel.find({});
-    res.status(200).json({ profiles });
+    const categories = await CategoryModel.find({});
+    res.status(200).json({ categories });
   } catch (e) {
     res.status(500).json({ message: e });
   }
@@ -14,8 +14,8 @@ export const readAll = async (req: Request, res: Response) => {
 export const readSingle = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const profile = await ProfileModel.findOne({ id });
-    res.status(200).json({ profile });
+    const category = await CategoryModel.findOne({ id });
+    res.status(200).json({ category });
   } catch (e) {
     res.status(500).json({ message: e });
   }

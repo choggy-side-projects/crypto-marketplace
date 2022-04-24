@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 
-import { IUser } from "../../auth/data/schema";
-import { ProfileModel } from "../data/schema";
+import { CategoryModel } from "../data/schema";
 
 export const del = async (req: Request, res: Response) => {
   try {
-    const id = (req.user as IUser).id;
+    const { id } = req.params;
 
-    await ProfileModel.deleteOne({ id });
+    await CategoryModel.deleteOne({ id });
 
     res.status(200).send("");
   } catch (e) {
