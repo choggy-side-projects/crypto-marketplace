@@ -54,7 +54,7 @@ export const roleMiddleware = (
   next: NextFunction,
   roles: string[]
 ) => {
-  if ((req.user as IUser).roles.every((role) => roles.includes(role))) {
+  if (roles.every((role) => (req.user as IUser).roles.includes(role))) {
     next();
   } else {
     return res.status(401).send("");
