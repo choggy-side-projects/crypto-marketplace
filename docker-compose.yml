@@ -1,13 +1,6 @@
 version: "3.1"
 
 services:
-  dynamodb:
-    image: amazon/dynamodb-local:latest
-    ports:
-      - 8000:8000
-    volumes:
-      - dynamodb_data:/home/dynamodblocal/data
-
   mongodb_container:
     image: mongo:latest
     environment:
@@ -18,28 +11,6 @@ services:
     volumes:
       - mongodb_data_container:/data/db
 
-  web:
-    build:
-      context: ./apps/web
-      dockerfile: Dockerfile
-    ports:
-      - 3000:3000
-    volumes:
-      - "./apps/web:/web"
-      - "/web/node_modules"
-
-  api:
-    build:
-      context: ./apps/api
-      dockerfile: Dockerfile
-    ports:
-      - 4000:4000
-    volumes:
-      - "./apps/api:/api"
-      - "/api/node_modules"
-
 volumes:
-  dynamodb_data:
-    driver: local
   mongodb_data_container:
     driver: local

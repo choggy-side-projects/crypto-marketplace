@@ -12,6 +12,7 @@
     "start": "cross-env NODE_ENV=production node ./server.js"
   },
   "dependencies": {
+    "@crypto-marketplace/ui": "workspace:*",
     "@remix-run/express": "^1.4.1",
     "@remix-run/node": "^1.4.1",
     "@remix-run/react": "^1.4.1",
@@ -20,7 +21,9 @@
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "remix-auth": "^3.2.1",
+    "remix-auth-form": "^1.1.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.4.1",
