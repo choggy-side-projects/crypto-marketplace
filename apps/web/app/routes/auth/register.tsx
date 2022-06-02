@@ -1,23 +1,26 @@
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
+import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 
 import { Form } from "@remix-run/react";
-import { Input } from "@crypto-marketplace/ui";
+import { Input } from "~/components/Forms/Input";
 import { authenticator } from "~/services/auth.server";
+import { redirect } from "@remix-run/node";
 import { register } from "~/services/api/auth";
 
-export let action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request }) => {
   if (request.method === "POST") {
     const form = await request.formData();
-    await register(
+    return await register(
       form.get("email")?.toString() ?? "",
       form.get("password")?.toString() ?? ""
     ).then(() => {
-      redirect("/auth/login");
+      return redirect("/auth/login");
     });
   }
+
+  return null;
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {
     successRedirect: "/",
   });

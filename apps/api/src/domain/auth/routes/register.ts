@@ -22,6 +22,6 @@ export const register = async (req: Request, res: Response) => {
 
     return res.status(200).send("");
   } catch (e) {
-    return res.status(500).send("");
+    return res.status(500).send(e);
   }
 };

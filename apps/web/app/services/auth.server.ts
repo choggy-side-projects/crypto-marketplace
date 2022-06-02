@@ -10,7 +10,7 @@ authenticator.use(
     let email = form.get("email")?.toString() ?? "";
     let password = form.get("password")?.toString() ?? "";
     let response = await login(email, password);
-    return response.token;
+    return response.data.token;
   }),
   "user-pass-token"
 );

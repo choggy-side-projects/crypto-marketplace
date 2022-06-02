@@ -1,17 +1,17 @@
 import type { ActionFunction, LoaderFunction } from "@remix-run/node";
 
 import { Form } from "@remix-run/react";
-import { Input } from "@crypto-marketplace/ui";
+import { Input } from "~/components/Forms/Input";
 import { authenticator } from "~/services/auth.server";
 
-export let action: ActionFunction = async ({ request }) => {
+export const action: ActionFunction = async ({ request }) => {
   return await authenticator.authenticate("user-pass-token", request, {
     successRedirect: "/",
-    failureRedirect: "/login",
+    failureRedirect: "/auth/login",
   });
 };
 
-export let loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }) => {
   return await authenticator.isAuthenticated(request, {
     successRedirect: "/",
   });
